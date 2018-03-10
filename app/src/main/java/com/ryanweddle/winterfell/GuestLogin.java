@@ -18,8 +18,6 @@ public class GuestLogin extends AppCompatActivity {
     private Button mRegisterButton;
     private Button mDeregisterButton;
     private EditText mTokenEntry;
-
-
     private ProgressDialog mProgress = null;
 
     @Override
