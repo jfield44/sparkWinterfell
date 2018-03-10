@@ -10,6 +10,8 @@ import com.ciscospark.androidsdk.Spark;
 import com.ciscospark.androidsdk.SparkError;
 import com.ciscospark.androidsdk.auth.Authenticator;
 import com.ciscospark.androidsdk.auth.JWTAuthenticator;
+import com.ciscospark.androidsdk.phone.Call;
+import com.ciscospark.androidsdk.phone.MediaOption;
 import com.ciscospark.androidsdk.phone.Phone;
 
 /**
@@ -27,6 +29,7 @@ class SparkModel {
     private Phone mPhone;
     private Authenticator mAuthenticator;
     private Application mApp;
+    private Call mActiveCall;
 
 
     private boolean mRegState = false;
@@ -42,7 +45,28 @@ class SparkModel {
         mApp = app;
     }
 
-    public void dial(String callee) {
+    public void dial(String callee, MediaOption media, CompletionHandler<Call> callback) {
+        if(!isInitSpark())
+            initSpark();
+
+        if(mPhone == null)
+            mPhone = mSpark.phone();
+
+        mPhone.dial(callee, media, result -> {
+            if (result.isSuccessful()) {
+                Log.i(CLASS_TAG, "Spark dial SUCCESSFUL");
+                mActiveCall = result.getData();
+                // need to setup call observer
+            }
+            else {
+                Log.i(CLASS_TAG, "Spark dial UNSUCCESSFUL");
+                SparkError e = result.getError();
+                Log.e(CLASS_TAG, "SPARKERROR: " + e.toString());
+            }
+            callback.onComplete(result);
+
+        });
+
     }
 
     public void hangup() {
