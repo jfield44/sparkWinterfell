@@ -16,6 +16,7 @@ public class GuestLogin extends AppCompatActivity {
     private SparkModel mSparkModel;
     private Button mButtonLoginJWT;
     private Button mRegisterButton;
+    private Button mDeregisterButton;
     private EditText mTokenEntry;
 
 
@@ -32,6 +33,7 @@ public class GuestLogin extends AppCompatActivity {
 
         mButtonLoginJWT = findViewById(R.id.button_jwtlogin);
         mRegisterButton = findViewById(R.id.button_registerphone);
+        mDeregisterButton = findViewById(R.id.button_deregisterphone);
         mTokenEntry = findViewById(R.id.text_jwtentry);
 
         // temporary setup sample JWT
@@ -85,8 +87,32 @@ public class GuestLogin extends AppCompatActivity {
                     }
                 });
             }
+        });
 
 
+        mDeregisterButton.setOnClickListener(view -> {
+            Log.i(CLASS_TAG, "Deregister Button Pressed");
+
+            if(!mSparkModel.isRegistered()) {
+                toast("Not registered yet");
+            } else if(!mSparkModel.isAuthenticated()) {
+                toast("Must auth before registering");
+            } else {
+                showBusyIndicator("Deregistering", "Waiting for device deregistration...");
+
+                mSparkModel.deRegister(r -> {
+                    if(r.isSuccessful()) {
+                        Log.i(CLASS_TAG, "Deregistration successful");
+                        dismissBusyIndicator();
+                        toast("Deregistration Successful");
+                    }
+                    else {
+                        Log.i(CLASS_TAG, "Deregistration failed");
+                        dismissBusyIndicator();
+                        toast("Deregistration Failed");
+                    }
+                });
+            }
         });
     }
 

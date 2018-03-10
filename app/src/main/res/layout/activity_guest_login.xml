@@ -49,4 +49,13 @@
         android:text="Register"
         app:layout_constraintStart_toStartOf="@+id/button_jwtlogin"
         app:layout_constraintTop_toBottomOf="@+id/button_jwtlogin" />
+
+    <Button
+        android:id="@+id/button_deregisterphone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="Deregister"
+        app:layout_constraintStart_toEndOf="@+id/button_registerphone"
+        app:layout_constraintTop_toTopOf="@+id/button_registerphone" />
 </android.support.constraint.ConstraintLayout>

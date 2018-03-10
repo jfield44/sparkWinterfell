@@ -57,11 +57,26 @@ class SparkModel {
         mPhone.register(r-> {
             if(r.isSuccessful()) {
                 Log.i(CLASS_TAG, "phone registration successful");
+                mRegState = true;
             } else {
                 Log.i(CLASS_TAG, "phone registration failed");
+                mRegState = false;
             }
             callback.onComplete(r);
         });
+    }
+
+    public void deRegister(CompletionHandler<Void> callback) {
+        if(mRegState) {
+            mPhone.deregister(r -> {
+               if(r.isSuccessful()) {
+                   Log.i(CLASS_TAG, "phone deregistration successful");
+               } else {
+                   Log.i(CLASS_TAG, "phone deregistration failed");
+               }
+               callback.onComplete(r);
+            });
+        }
     }
 
     private void initSpark() {
@@ -76,8 +91,7 @@ class SparkModel {
         return mSpark != null;
     }
 
-    public void deRegister() {
-    }
+
 
     public boolean isRegistered() {
         return mRegState;
