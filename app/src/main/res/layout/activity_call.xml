@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.ryanweddle.winterfell.Call">
+    tools:context="com.ryanweddle.winterfell.SparkCall">
 
 
-    <SurfaceView
+    <com.webex.wseclient.WseSurfaceView
         android:id="@+id/view_callremote"
         android:layout_width="0dp"
         android:layout_height="200dp"
@@ -17,6 +17,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_call_label" />
+
+    <com.webex.wseclient.WseSurfaceView
+        android:id="@+id/view_calllocal"
+        android:layout_width="0dp"
+        android:layout_height="200dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/view_callremote" />
 
     <TextView
         android:id="@+id/text_call_label"

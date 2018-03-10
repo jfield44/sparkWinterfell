@@ -20,6 +20,7 @@ public class SparkCall extends AppCompatActivity {
 
     private SparkModel mSparkModel;
     private View mRemoteView;
+    private View mLocalView;
     private TextView mCallLabel;
     private String mCallString;
     private MediaOption mMedia;
@@ -36,13 +37,15 @@ public class SparkCall extends AppCompatActivity {
 
         mSparkModel = SparkModel.getInstance();
 
+        mLocalView = findViewById(R.id.view_calllocal);
         mRemoteView = findViewById(R.id.view_callremote);
         mCallLabel = findViewById(R.id.text_call_label);
 
         handleIntent();
 
         mCallLabel.setText(mCallString);
-        mMedia = MediaOption.audioOnly();
+//        mMedia = MediaOption.audioOnly();
+        mMedia = MediaOption.audioVideo(mLocalView, mRemoteView);
 
         // permission request code
         String[] permissions = {
