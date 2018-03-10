@@ -15,7 +15,9 @@ public class GuestLogin extends AppCompatActivity {
 
     private SparkModel mSparkModel;
     private Button mButtonLoginJWT;
+    private Button mRegisterButton;
     private EditText mTokenEntry;
+
 
     private ProgressDialog mProgress = null;
 
@@ -29,6 +31,7 @@ public class GuestLogin extends AppCompatActivity {
         mSparkModel = SparkModel.getInstance();
 
         mButtonLoginJWT = findViewById(R.id.button_jwtlogin);
+        mRegisterButton = findViewById(R.id.button_registerphone);
         mTokenEntry = findViewById(R.id.text_jwtentry);
 
         // temporary setup sample JWT
@@ -56,8 +59,39 @@ public class GuestLogin extends AppCompatActivity {
             });
 
         });
+
+
+        mRegisterButton.setOnClickListener(view -> {
+            Log.i(CLASS_TAG, "Register Button Pressed");
+
+            if(mSparkModel.isRegistered()) {
+                toast("Already registered");
+            } else if(!mSparkModel.isAuthenticated()) {
+                toast("Must Auth before registering");
+            }
+            else {
+                showBusyIndicator("Registering", "Waiting for device registration...");
+
+                mSparkModel.register(r -> {
+                    if(r.isSuccessful()) {
+                        Log.i(CLASS_TAG, "Registration successful");
+                        dismissBusyIndicator();
+                        toast("Registration Successful");
+                    }
+                    else {
+                        Log.i(CLASS_TAG, "Registration failed");
+                        dismissBusyIndicator();
+                        toast("Registration Failed");
+                    }
+                });
+            }
+
+
+        });
     }
 
+
+    // User Interface helper functions
 
     public void toast(String message) {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();

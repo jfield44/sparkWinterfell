@@ -25,6 +25,8 @@ public class MainActivity extends AppCompatActivity {
         Log.v(CLASS_TAG, "onCreate");
 
         mSparkModel = SparkModel.getInstance();
+        mSparkModel.setApp(this.getApplication());
+
 
         mLoginButtonJWT = findViewById(R.id.button_main_jwt);
         mLoginButtonOauth = findViewById(R.id.button_main_oauth);

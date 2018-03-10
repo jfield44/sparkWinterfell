@@ -37,7 +37,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Login"
+        android:text="Auth"
         app:layout_constraintStart_toStartOf="@+id/text_jwtentry"
         app:layout_constraintTop_toBottomOf="@+id/text_jwtentry" />
+
+    <Button
+        android:id="@+id/button_registerphone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Register"
+        app:layout_constraintStart_toStartOf="@+id/button_jwtlogin"
+        app:layout_constraintTop_toBottomOf="@+id/button_jwtlogin" />
 </android.support.constraint.ConstraintLayout>
