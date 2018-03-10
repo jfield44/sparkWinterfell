@@ -69,7 +69,22 @@ class SparkModel {
 
     }
 
-    public void hangup() {
+    public void hangup(CompletionHandler<Void> callback) {
+        if (mActiveCall != null) {
+            mActiveCall.hangup(result -> {
+                if(result.isSuccessful()) {
+                    Log.i(CLASS_TAG, "Spark hangup successful");
+
+                }
+                else {
+                    Log.i(CLASS_TAG, "Spark hangup unsuccessful");
+                    SparkError e = result.getError();
+                    Log.e(CLASS_TAG, "SPARKERROR: " + e.toString());
+                }
+                callback.onComplete(result);
+            });
+            mActiveCall = null;
+        }
     }
 
     public void register(CompletionHandler<Void> callback) {
@@ -128,7 +143,7 @@ class SparkModel {
             return false;
     }
 
-    public void authenticateJWT(String token, CompletionHandler<String> resultHandler) {
+    public void authenticateJWT(String token, CompletionHandler<String> callback) {
 
         JWTAuthenticator jwta = new JWTAuthenticator();
         jwta.authorize(token);
@@ -139,7 +154,7 @@ class SparkModel {
             }
             else
                 Log.i(CLASS_TAG, "failed token auth");
-            resultHandler.onComplete(r);
+            callback.onComplete(r);
         });
     }
 
