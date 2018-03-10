@@ -48,16 +48,10 @@ public class GuestLogin extends AppCompatActivity {
             // need to add exception handling
 
             mSparkModel.authenticateJWT(token, r -> {
-                if(r.isSuccessful()) {
-                    Log.i(CLASS_TAG, "JWT auth successful");
-                    dismissBusyIndicator();
-                    toast("Login Successful");
-                }
-                else {
-                    Log.i(CLASS_TAG, "JWT auth failed");
-                    dismissBusyIndicator();
-                    toast("Login failed");
-                }
+                if(r.isSuccessful())
+                    dismissWithToast("Login successful");
+                else
+                    dismissWithToast("Login failed");
             });
 
         });
@@ -75,16 +69,10 @@ public class GuestLogin extends AppCompatActivity {
                 showBusyIndicator("Registering", "Waiting for device registration...");
 
                 mSparkModel.register(r -> {
-                    if(r.isSuccessful()) {
-                        Log.i(CLASS_TAG, "Registration successful");
-                        dismissBusyIndicator();
-                        toast("Registration Successful");
-                    }
-                    else {
-                        Log.i(CLASS_TAG, "Registration failed");
-                        dismissBusyIndicator();
-                        toast("Registration Failed");
-                    }
+                    if(r.isSuccessful())
+                        dismissWithToast("Registration successful");
+                    else
+                        dismissWithToast("Registration failed");
                 });
             }
         });
@@ -101,16 +89,10 @@ public class GuestLogin extends AppCompatActivity {
                 showBusyIndicator("Deregistering", "Waiting for device deregistration...");
 
                 mSparkModel.deRegister(r -> {
-                    if(r.isSuccessful()) {
-                        Log.i(CLASS_TAG, "Deregistration successful");
-                        dismissBusyIndicator();
-                        toast("Deregistration Successful");
-                    }
-                    else {
-                        Log.i(CLASS_TAG, "Deregistration failed");
-                        dismissBusyIndicator();
-                        toast("Deregistration Failed");
-                    }
+                    if(r.isSuccessful())
+                        dismissWithToast("Deregistration successful");
+                    else
+                        dismissWithToast("Deregistration failed");
                 });
             }
         });
@@ -132,5 +114,11 @@ public class GuestLogin extends AppCompatActivity {
             mProgress.dismiss();
             mProgress = null;
         }
+    }
+
+    public void dismissWithToast(String message) {
+        Log.i(CLASS_TAG, message);
+        dismissBusyIndicator();
+        toast(message);
     }
 }
