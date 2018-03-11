@@ -14,3 +14,4 @@ Many thanks to the Spark SDK team for the Spark Android SDK as well as the Kitch
 ## Disclaimer
 
 This code is provided under the MIT license - see LICENSE file for details.  No warranties are made or implied.
+
