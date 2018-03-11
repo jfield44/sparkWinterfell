@@ -2,6 +2,8 @@
 
 Winterfell is a simplified sample app for the Spark Android SDK.  It is currently in early development, but the intent is to provide an example that is easier for beginners to follow than the Kitchen Sink sample app.  This is a complete rewrite of my earlier sample app and strives to be a ground up implementation instead of a cutdown Kitchen Sink.  As such, there is still much missing functionality.
 
+Many thanks to the Spark SDK team for the Spark Android SDK as well as the Kitchen Sink example app, which is the inspiration for this code.
+
 ## Limitations
 * Only JWT auth has been implemented yet
 * Auth, and Phone registration must be performed manually in the JWT Activity (hit the buttons)
