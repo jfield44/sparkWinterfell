@@ -11,6 +11,7 @@ import com.ciscospark.androidsdk.SparkError;
 import com.ciscospark.androidsdk.auth.Authenticator;
 import com.ciscospark.androidsdk.auth.JWTAuthenticator;
 import com.ciscospark.androidsdk.phone.Call;
+import com.ciscospark.androidsdk.phone.CallObserver;
 import com.ciscospark.androidsdk.phone.MediaOption;
 import com.ciscospark.androidsdk.phone.Phone;
 
@@ -18,7 +19,7 @@ import com.ciscospark.androidsdk.phone.Phone;
  * Created by ryweddle on 3/10/18.
  */
 
-class SparkModel {
+class SparkModel implements CallObserver {
 
     public static final String CLASS_TAG = "SparkModel";
 
@@ -30,15 +31,29 @@ class SparkModel {
     private Authenticator mAuthenticator;
     private Application mApp;
     private Call mActiveCall;
-
+    private CallObserver mObserver;
 
     private boolean mRegState = false;
+
+
+
 
     static SparkModel getInstance() {
         return ourInstance;
     }
 
     private SparkModel() {
+    }
+
+    public void setObserver(CallObserver observer) {
+        if(observer == this)
+            clearObserver();
+        else
+            mObserver = observer;
+    }
+
+    public void clearObserver() {
+        mObserver = null;
     }
 
     public void setApp(Application app) {
@@ -56,7 +71,7 @@ class SparkModel {
             if (result.isSuccessful()) {
                 Log.i(CLASS_TAG, "Spark dial SUCCESSFUL");
                 mActiveCall = result.getData();
-                // need to setup call observer
+                mActiveCall.setObserver(this);
             }
             else {
                 Log.i(CLASS_TAG, "Spark dial UNSUCCESSFUL");
@@ -163,4 +178,44 @@ class SparkModel {
     }
 
 
+
+    /*
+     * Methods for CallObserver
+     *  take locally required actions and delegate call to observer if set
+     */
+
+    @Override
+    public void onRinging(Call call) {
+        Log.i(CLASS_TAG, "onRinging called");
+        if(mObserver != null)
+            mObserver.onRinging(call);
+    }
+
+    @Override
+    public void onConnected(Call call) {
+        Log.i(CLASS_TAG, "onConnected called");
+        if(mObserver != null)
+            mObserver.onConnected(call);
+    }
+
+    @Override
+    public void onDisconnected(CallDisconnectedEvent event) {
+        Log.i(CLASS_TAG, "onDisconnected called");
+        if(mObserver != null)
+            mObserver.onDisconnected(event);
+    }
+
+    @Override
+    public void onMediaChanged(MediaChangedEvent event) {
+        Log.i(CLASS_TAG, "onMediaChanged called");
+        if(mObserver != null)
+            mObserver.onMediaChanged(event);
+    }
+
+    @Override
+    public void onCallMembershipChanged(CallMembershipChangedEvent event) {
+        Log.i(CLASS_TAG, "onCallMembershipsChanged called");
+        if(mObserver != null)
+            mObserver.onCallMembershipChanged(event);
+    }
 }
