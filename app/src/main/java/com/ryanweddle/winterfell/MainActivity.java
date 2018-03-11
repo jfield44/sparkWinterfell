@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         mCallButton = findViewById(R.id.button_main_call);
         mCallEdit = findViewById(R.id.text_main_callee);
 
-        mCallEdit.setText("ryweddle@cisco.com");
+        mCallEdit.setText(DevConstants.EXAMPLE_SPARKID);
 
         mLoginButtonOauth.setOnClickListener(view -> {
             Log.i(CLASS_TAG, "Oauth Login Button Pressed");

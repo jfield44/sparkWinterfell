@@ -11,7 +11,7 @@ import android.widget.Toast;
 public class GuestLogin extends AppCompatActivity {
 
     public static final String CLASS_TAG = "GuestLoginActivity";
-    private static final String EXAMPLE_JWT = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJIZWxsb1NESy0wMDEiLCJuYW1lIjoiR3Vlc3QgMDAxIiwiaXNzIjoiWTJselkyOXpjR0Z5YXpvdkwzVnpMMDlTUjBGT1NWcEJWRWxQVGk4eE1UVXpOR1UyWmkweE1qY3dMVFJqWlRjdFltUTJNQzA1TnpWaVkyUmxZV1JtTldNIiwiaWF0IjoxNTIwNjM1OTQ4LCJleHAiOjE1MjEwNjc5NDh9.j-lnPJm0iC53sCg7FsjNWFfhuz_2LZuolEbjf1IkD5I";
+    private static final String EXAMPLE_JWT = DevConstants.EXAMPLE_JWT;
 
     private SparkModel mSparkModel;
     private Button mButtonLoginJWT;
